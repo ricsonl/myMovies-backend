@@ -7,7 +7,10 @@ const knex_1 = __importDefault(require("knex"));
 const path_1 = __importDefault(require("path"));
 const conn = knex_1.default({
     client: 'pg',
-    connection: process.env.DATABASE_URL,
+    connection: {
+        connectionString: process.env.DATABASE_URL,
+        ssl: true
+    },
     migrations: {
         directory: path_1.default.resolve(__dirname, 'migrations'),
     },
