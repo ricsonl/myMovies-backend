@@ -16,7 +16,7 @@ class ProfilesController {
       return res.json(accountProfiles);
 
     }catch(err){
-      return res.json({ message: err });
+      // return res.json({ message: err });
     }
   }
 
@@ -72,7 +72,7 @@ class ProfilesController {
       });
 
     }catch(err){
-      return res.json({ message: err });
+      // return res.json({ message: err });
     }
   }
 
@@ -118,7 +118,7 @@ class ProfilesController {
       return res.status(204).json({ deleted: targetId });
 
     }catch(err){
-      return res.json({ message: err });
+      // return res.json({ message: err });
     }
   }
 }

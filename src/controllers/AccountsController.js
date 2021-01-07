@@ -52,7 +52,7 @@ class AccountsController {
                     });
                 }
                 catch (err) {
-                    return res.json({ message: err });
+                    // return res.json({ message: err });
                 }
             }
             return res.json({ message: 'Preencha todos os campos!' });

@@ -36,7 +36,7 @@ class LoginController {
                     });
                 }
                 catch (err) {
-                    return res.json({ message: err });
+                    // return res.json({ message: err });
                 }
             }
             else

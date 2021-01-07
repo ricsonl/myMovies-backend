@@ -23,7 +23,7 @@ class WatchListController {
       return res.status(200).json(profileWatchlist);
 
     }catch(err){
-      return res.json({ message: err });
+      // return res.json({ message: err });
     }
   }
 
@@ -76,7 +76,7 @@ class WatchListController {
       });
 
     }catch(err){
-      return res.json({ message: err });
+      // return res.json({ message: err });
     }
   }
 
@@ -116,7 +116,7 @@ class WatchListController {
       return res.status(204).json({ deleted: targetId });
 
     }catch(err){
-      return res.json({ message: err });
+      // return res.json({ message: err });
     }
   }
   

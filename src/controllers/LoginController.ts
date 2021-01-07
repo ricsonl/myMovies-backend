@@ -27,7 +27,7 @@ class LoginController {
           return res.json({ message: 'Senha incorreta' });
         })
       }catch(err){
-        return res.json({ message: err });
+        // return res.json({ message: err });
       }
     }
     else return res.json({ message: 'Preencha todos os campos!' });
