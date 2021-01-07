@@ -11,8 +11,8 @@ class LoginController {
     if(email && password){
       try{
         const accounts = await db('accounts')
-        .where('email', email)
-        .select('*');
+          .where('email', email)
+          .select('*');
       
         if(accounts.length == 0)
           return res.json({ message: 'Não existe uma conta vinculada a este email' });

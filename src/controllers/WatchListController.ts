@@ -59,9 +59,9 @@ class WatchListController {
         watched: false,
       }
 
-      const insertedWatchlistItemIds = await trx('watchlistItems').insert(newWatchlistItem);
+      const insertedWatchlistItemIds = await trx('watchlistItems').insert(newWatchlistItem, ['id']);
 
-      const newWatchlistItemId = insertedWatchlistItemIds[0];
+      const newWatchlistItemId = insertedWatchlistItemIds[0].id;
 
       await trx('profile_watchlistItem').insert({
         profile_id: logged_prof,
