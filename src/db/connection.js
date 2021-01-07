@@ -6,9 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const knex_1 = __importDefault(require("knex"));
 const path_1 = __importDefault(require("path"));
 const conn = knex_1.default({
-    client: 'sqlite3',
-    connection: {
-        filename: path_1.default.resolve(__dirname, 'db.sqlite'),
+    client: 'pg',
+    connection: process.env.DATABASE_URL,
+    migrations: {
+        directory: path_1.default.resolve(__dirname, 'migrations'),
     },
     useNullAsDefault: true,
 });
