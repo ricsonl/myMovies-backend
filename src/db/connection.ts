@@ -3,7 +3,10 @@ import path from 'path';
 
 const conn = knex({
   client: 'pg',
-  connection: process.env.DATABASE_URL,
+  connection: {
+    connectionString: process.env.DATABASE_URL, 
+    ssl:true
+  },
   migrations: {
     directory: path.resolve(__dirname, 'migrations'),
   },
