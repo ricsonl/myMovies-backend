@@ -5,7 +5,7 @@ const conn = knex({
   client: 'pg',
   connection: {
     connectionString: process.env.DATABASE_URL, 
-    ssl:true
+    ssl: { rejectUnauthorized: false }
   },
   migrations: {
     directory: path.resolve(__dirname, 'migrations'),
