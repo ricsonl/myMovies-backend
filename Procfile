@@ -1,1 +1,1 @@
-web: npm start
+web: npm run prod:knex:mig:rb && npm run prod:knex:mig && npm run start
