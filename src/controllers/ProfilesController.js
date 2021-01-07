@@ -56,8 +56,8 @@ class ProfilesController {
                     main: false,
                 };
                 const trx = yield connection_1.default.transaction();
-                const insertedProfileIds = yield trx('profiles').insert(newProfile);
-                const newProfileId = insertedProfileIds[0];
+                const insertedProfileIds = yield trx('profiles').insert(newProfile, ['id']);
+                const newProfileId = insertedProfileIds[0].id;
                 yield trx('account_profile').insert({
                     account_id: logged_acc,
                     profile_id: newProfileId,

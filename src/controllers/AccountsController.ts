@@ -12,7 +12,7 @@ class AccountsController {
       mainProfileName,
       birthday,
     } = req.body;
-
+    console.log(req.body);
     if(email && password && mainProfileName && birthday){
       try{
         const sameEmailAccounts = await db('accounts')

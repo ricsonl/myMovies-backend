@@ -57,8 +57,8 @@ class WatchListController {
                     TMDB_id,
                     watched: false,
                 };
-                const insertedWatchlistItemIds = yield trx('watchlistItems').insert(newWatchlistItem);
-                const newWatchlistItemId = insertedWatchlistItemIds[0];
+                const insertedWatchlistItemIds = yield trx('watchlistItems').insert(newWatchlistItem, ['id']);
+                const newWatchlistItemId = insertedWatchlistItemIds[0].id;
                 yield trx('profile_watchlistItem').insert({
                     profile_id: logged_prof,
                     watchlistItem_id: newWatchlistItemId,

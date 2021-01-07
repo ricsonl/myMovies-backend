@@ -18,6 +18,7 @@ class AccountsController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { email, password, mainProfileName, birthday, } = req.body;
+            console.log(req.body);
             if (email && password && mainProfileName && birthday) {
                 try {
                     const sameEmailAccounts = yield connection_1.default('accounts')
@@ -32,15 +33,15 @@ class AccountsController {
                         email,
                         password: hashed,
                     };
-                    const insertedAccountIds = yield trx('accounts').insert(account);
+                    const insertedAccountIds = yield trx('accounts').insert(account, ['id']);
                     const mainProfile = {
                         name: mainProfileName,
                         main: true,
                         birthday,
                     };
-                    const insertedProfileIds = yield trx('profiles').insert(mainProfile);
-                    const accountId = insertedAccountIds[0];
-                    const mainProfileId = insertedProfileIds[0];
+                    const insertedProfileIds = yield trx('profiles').insert(mainProfile, ['id']);
+                    const accountId = insertedAccountIds[0].id;
+                    const mainProfileId = insertedProfileIds[0].id;
                     yield trx('account_profile').insert({
                         account_id: accountId,
                         profile_id: mainProfileId,
