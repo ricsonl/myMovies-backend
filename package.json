@@ -5,9 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsnd --transpile-only --ignore-watch node_modules --respawn src/index.ts",
+
+    "dev": "tsnd --transpile-only --ignore-watch node_modules --respawn src/index.ts",
     "knex:mig": "knex --knexfile knexfile.ts migrate:latest",
-    "knex:mig:rb": "knex --knexfile knexfile.ts migrate:rollback"
+    "knex:mig:rb": "knex --knexfile knexfile.ts migrate:rollback",
+
+    "start": "node src/index.js",
+    "prod:knex:mig": "knex --knexfile knexfile.js migrate:latest",
+    "prod:knex:mig:rb": "knex --knexfile knexfile.js migrate:rollback"
   },
   "author": "",
   "license": "ISC",
