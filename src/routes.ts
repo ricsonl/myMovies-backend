@@ -16,7 +16,6 @@ routes.post('/accounts', accountsController.create);
 routes.post('/login', loginController.create);
 
 routes.get('/profiles', profilesController.index);
-routes.get('/profiles/:id', profilesController.show);
 routes.post('/profiles', profilesController.create);
 routes.delete('/profiles/:targetId', profilesController.delete);
 

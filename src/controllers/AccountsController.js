@@ -19,36 +19,41 @@ class AccountsController {
         return __awaiter(this, void 0, void 0, function* () {
             const { email, password, mainProfileName, birthday, } = req.body;
             if (email && password && mainProfileName && birthday) {
-                const sameEmailAccounts = yield connection_1.default('accounts')
-                    .where('email', email)
-                    .count('* as countSame');
-                const { countSame } = sameEmailAccounts[0];
-                if (countSame > 0)
-                    return res.json({ message: 'Já existe uma conta com este email!' });
-                const trx = yield connection_1.default.transaction();
-                const hashed = yield bcrypt_1.default.hash(password, 10);
-                const account = {
-                    email,
-                    password: hashed,
-                };
-                const insertedAccountIds = yield trx('accounts').insert(account);
-                const mainProfile = {
-                    name: mainProfileName,
-                    main: true,
-                    birthday,
-                };
-                const insertedProfileIds = yield trx('profiles').insert(mainProfile);
-                const accountId = insertedAccountIds[0];
-                const mainProfileId = insertedProfileIds[0];
-                yield trx('account_profile').insert({
-                    account_id: accountId,
-                    profile_id: mainProfileId,
-                });
-                trx.commit();
-                return res.json({
-                    id: accountId,
-                    email
-                });
+                try {
+                    const sameEmailAccounts = yield connection_1.default('accounts')
+                        .where('email', email)
+                        .count('* as countSame');
+                    const { countSame } = sameEmailAccounts[0];
+                    if (countSame > 0)
+                        return res.json({ message: 'Já existe uma conta com este email!' });
+                    const trx = yield connection_1.default.transaction();
+                    const hashed = yield bcrypt_1.default.hash(password, 10);
+                    const account = {
+                        email,
+                        password: hashed,
+                    };
+                    const insertedAccountIds = yield trx('accounts').insert(account);
+                    const mainProfile = {
+                        name: mainProfileName,
+                        main: true,
+                        birthday,
+                    };
+                    const insertedProfileIds = yield trx('profiles').insert(mainProfile);
+                    const accountId = insertedAccountIds[0];
+                    const mainProfileId = insertedProfileIds[0];
+                    yield trx('account_profile').insert({
+                        account_id: accountId,
+                        profile_id: mainProfileId,
+                    });
+                    trx.commit();
+                    return res.json({
+                        id: accountId,
+                        email
+                    });
+                }
+                catch (err) {
+                    return res.json({ message: err });
+                }
             }
             return res.json({ message: 'Preencha todos os campos!' });
         });
