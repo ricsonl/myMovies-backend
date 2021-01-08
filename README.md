@@ -1,11 +1,11 @@
 ## Server
 
-### Tecnologias utilizadas
-<ul>
-  <li>TypeScript</li>
-  <li>NodeJS + Express</li>
-  <li>Knex (Sqlite3 em ambiente de desenvolvimento, PostgreSQL em produção)</li>
-</ul>
+### Tecnologias utilizadas  
+* TypeScript  
+* NodeJS + Express  
+* Knex  
+    * Sqlite3 em ambiente de desenvolvimento  
+    * PostgreSQL em ambiente de produção
 
 #### Para executar:
 1. `npm install` para instalar as dependências
