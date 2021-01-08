@@ -4,14 +4,15 @@
 <ul>
   <li>TypeScript</li>
   <li>NodeJS + Express</li>
-  <li>Knex + SQLite3</li>
+  <li>Knex (Sqlite3 em ambiente de desenvolvimento, PostgreSQL em produção)</li>
 </ul>
 
 #### Para executar:
 1. `npm install` para instalar as dependências
-2. `npm run knex:mig` para criar o banco
-3. `npm run start` para iniciar o servidor
-4.  utilizar um _REST API Client_ para testar as requisições  
+2. `npm run knex:mig:rb` para deletar o banco (caso esteja criado)
+3. `npm run knex:mig` para criar o banco
+4. `npm run dev` para iniciar o servidor
+5.  utilizar um _REST API Client_ para testar as requisições  
   * **Cadastro de conta na plataforma:** _POST_ localhost:3100/accounts
     * _BODY EXAMPLE_:  
     `{`  
