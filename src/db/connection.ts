@@ -1,16 +1,8 @@
 import knex from 'knex';
-import path from 'path';
+const knexfile = require('../../knexfile');
 
-const conn = knex({
-  client: 'pg',
-  connection: {
-    connectionString: process.env.DATABASE_URL, 
-    ssl: { rejectUnauthorized: false }
-  },
-  migrations: {
-    directory: path.resolve(__dirname, 'migrations'),
-  },
-  useNullAsDefault: true,
-});
+const environment = process.env.NODE_ENV || 'development';
+
+const conn = knex(knexfile[environment]);
 
 export default conn;

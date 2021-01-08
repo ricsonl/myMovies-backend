@@ -18,7 +18,6 @@ class AccountsController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { email, password, mainProfileName, birthday, } = req.body;
-            console.log(req.body);
             if (email && password && mainProfileName && birthday) {
                 try {
                     const sameEmailAccounts = yield connection_1.default('accounts')
