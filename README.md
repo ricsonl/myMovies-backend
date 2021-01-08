@@ -102,7 +102,7 @@
        `logged_prof: 23`  (id do perfil)
 
     * _RESPONSE EXAMPLE_ (code 200):
-    ```
+   ```
       [
          {  
           "id": 2,  
@@ -119,7 +119,7 @@
           "watched": 1  
          }
       ]
-      ```
+   ```
        
  * **Adicionar filme à watchlist de um perfil:** _POST_ `localhost:3100/watchlist`  
     * _HEADERS EXAMPLE_:  
