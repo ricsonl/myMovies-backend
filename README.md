@@ -4,7 +4,7 @@
 <ul>
   <li>TypeScript</li>
   <li>NodeJS + Express</li>
-  <li>Knex + PostgreSQL</li>
+  <li>Knex (Sqlite3 em ambiente de desenvolvimento, PostgreSQL em produção)</li>
 </ul>
 
 #### Para executar:
