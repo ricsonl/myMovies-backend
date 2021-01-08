@@ -1,10 +1,13 @@
-import { Request, Response } from 'express';
-import bcrypt from 'bcrypt';
-
+import { Request, Response, NextFunction } from 'express';
 import db from '../db/connection';
+import dotenv from 'dotenv';
+dotenv.config();
+
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 class LoginController {
-  async create(req :Request, res :Response){// requisição de efetuar login
+  async create(req :Request, res :Response, next :NextFunction){// requisição de efetuar login
 
     const { email, password } = req.body;
 
@@ -19,11 +22,26 @@ class LoginController {
 
         const acc = accounts[0];
         await bcrypt.compare(password, accounts[0].password).then((result) => {
-          if(result)
-            return res.json({ 
+
+          if(result){
+
+            const tokenData = {
               id: acc.id,
               email,
+            }
+            const secret = process.env.JWT_SECRET || 'ssecreEt';
+
+            const token = jwt.sign(tokenData, secret, {
+              expiresIn: '20m'
+            })
+
+            return res.json({
+              id: acc.id,
+              email,
+              token
             });
+          }
+          
           return res.json({ message: 'Senha incorreta' });
         })
       }catch(err){

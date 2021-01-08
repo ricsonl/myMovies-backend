@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import db from '../db/connection';
 
+import jwt from 'jsonwebtoken';
+
 class WatchListController {
 
   async index(req :Request, res :Response){// lista os filmes da watchlist
@@ -59,9 +61,9 @@ class WatchListController {
         watched: false,
       }
 
-      const insertedWatchlistItemIds = await trx('watchlistItems').insert(newWatchlistItem, ['id']);
+      const insertedWatchlistItemIds = await trx('watchlistItems').insert(newWatchlistItem);
 
-      const newWatchlistItemId = insertedWatchlistItemIds[0].id;
+      const newWatchlistItemId = insertedWatchlistItemIds[0];
 
       await trx('profile_watchlistItem').insert({
         profile_id: logged_prof,

@@ -1,5 +1,5 @@
 import path from 'path';
-require('ts-node/register');
+//require('ts-node/register');
 
 module.exports = {
   development: {

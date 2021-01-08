@@ -1,6 +1,10 @@
 import { Request, Response } from 'express';
-import bcrypt from 'bcrypt';
 import db from '../db/connection';
+import dotenv from 'dotenv';
+dotenv.config();
+
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 class AccountsController {
 
@@ -12,7 +16,7 @@ class AccountsController {
       mainProfileName,
       birthday,
     } = req.body;
-    
+
     if(email && password && mainProfileName && birthday){
       try{
         const sameEmailAccounts = await db('accounts')
@@ -32,17 +36,17 @@ class AccountsController {
           email,
           password: hashed,
         };
-        const insertedAccountIds = await trx('accounts').insert(account, ['id']);
+        const insertedAccountIds = await trx('accounts').insert(account);
 
         const mainProfile = {
           name: mainProfileName,
           main: true,
           birthday,
         }
-        const insertedProfileIds = await trx('profiles').insert(mainProfile, ['id']);
+        const insertedProfileIds = await trx('profiles').insert(mainProfile);
 
-        const accountId = insertedAccountIds[0].id;
-        const mainProfileId = insertedProfileIds[0].id;
+        const accountId = insertedAccountIds[0];
+        const mainProfileId = insertedProfileIds[0];
 
         await trx('account_profile').insert({
           account_id: accountId,
@@ -51,10 +55,22 @@ class AccountsController {
 
         trx.commit();
 
+        const tokenData = {
+          id: accountId,
+          email,
+        }
+        const secret = process.env.JWT_SECRET || 'ssecreEt';
+
+        const token = jwt.sign(tokenData, secret, {
+          expiresIn: '20m'
+        })
+
         return res.json({
           id: accountId,
-          email
+          email,
+          token
         });
+
       }catch(err){
         // return res.json({ message: err });
       }

@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import db from '../db/connection';
+import jwt from 'jsonwebtoken';
 
 class ProfilesController {
 
@@ -55,9 +56,9 @@ class ProfilesController {
 
       const trx = await db.transaction();
 
-      const insertedProfileIds = await trx('profiles').insert(newProfile, ['id']);
+      const insertedProfileIds = await trx('profiles').insert(newProfile);
 
-      const newProfileId = insertedProfileIds[0].id;
+      const newProfileId = insertedProfileIds[0];
 
       await trx('account_profile').insert({
         account_id: logged_acc,
