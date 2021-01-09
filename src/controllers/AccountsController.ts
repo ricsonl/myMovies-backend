@@ -1,7 +1,5 @@
 import { Request, Response } from 'express';
 import db from '../db/connection';
-import dotenv from 'dotenv';
-dotenv.config();
 
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -36,17 +34,17 @@ class AccountsController {
           email,
           password: hashed,
         };
-        const insertedAccountIds = await trx('accounts').insert(account);
+        const insertedAccountIds = await trx('accounts').insert(account, ['id']);
 
         const mainProfile = {
           name: mainProfileName,
           main: true,
           birthday,
         }
-        const insertedProfileIds = await trx('profiles').insert(mainProfile);
+        const insertedProfileIds = await trx('profiles').insert(mainProfile, ['id']);
 
-        const accountId = insertedAccountIds[0];
-        const mainProfileId = insertedProfileIds[0];
+        const accountId = insertedAccountIds[0].id;
+        const mainProfileId = insertedProfileIds[0].id;
 
         await trx('account_profile').insert({
           account_id: accountId,

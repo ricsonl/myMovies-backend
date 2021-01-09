@@ -5,10 +5,10 @@ import routesAuth from './routesAuth';
 
 const app = express();
 
-app.use(cors(/*{
+app.use(cors({
   origin: 'https://mymovies-frontend.herokuapp.com',
   optionsSuccessStatus: 200
-}*/));
+}));
 
 app.use(express.json());
 

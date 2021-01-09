@@ -1,10 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-import dotenv from 'dotenv';
-dotenv.config();
-
-const authAndContinue = (req :Request, res :Response, next :NextFunction) => {
+const auth = (req :Request, res :Response, next :NextFunction) => {
 
   const token = req.headers['x-access-token'];
   if(token){
@@ -13,7 +10,7 @@ const authAndContinue = (req :Request, res :Response, next :NextFunction) => {
 
       if(err)
         res.json({
-          auth: false,
+          authFailed: true,
           message: 'Token inválida'
         });
       
@@ -23,42 +20,11 @@ const authAndContinue = (req :Request, res :Response, next :NextFunction) => {
 
   } else {
     res.json({
-      auth: false,
+      authFailed: true,
       message: 'Nenhuma token fornecida'
     });
   }
 
 };
 
-const auth = (req :Request, res :Response, next :NextFunction) => {
-
-  const token = req.headers['x-access-token'];
-
-  if(token != 'null'){
-
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-
-      if(err)
-        res.json({
-          auth: false,
-          message: 'Token inválida'
-        });
-
-      else
-        res.json({
-          auth: true
-        });
-
-    });
-
-  } else {
-
-    res.json({
-      auth: false,
-      message: 'Nenhuma token fornecida'
-    });
-
-  }
-};
-
-export { auth, authAndContinue};
+export default auth;

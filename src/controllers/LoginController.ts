@@ -1,7 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import db from '../db/connection';
-import dotenv from 'dotenv';
-dotenv.config();
 
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -25,14 +23,11 @@ class LoginController {
 
           if(result){
 
-            const tokenData = {
-              id: acc.id,
-              email,
-            }
+            const tokenData = { id: acc.id }
             const secret = process.env.JWT_SECRET || 'ssecreEt';
 
             const token = jwt.sign(tokenData, secret, {
-              expiresIn: '20m'
+              expiresIn: '50m'
             })
 
             return res.json({
