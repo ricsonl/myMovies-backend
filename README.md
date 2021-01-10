@@ -1,4 +1,4 @@
-## Server
+## MyMovies Backend
 
 ### Tecnologias utilizadas  
 * TypeScript  
@@ -6,6 +6,7 @@
 * Knex  
     * Sqlite3 em ambiente de desenvolvimento  
     * PostgreSQL em ambiente de produção
+* JWT
 
 #### Para executar:
 1. `npm install` para instalar as dependências
